@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+import { Card, CardTitle, Row, Col, Footer } from 'react-materialize';
+import Flexbox from 'flexbox-react';
 import './App.css';
+
+
+
+
 import Question from '../Question/Question';
 import Progress from '../Progress/Progress';
 import MultiChoice from '../MultiChoice/MultiChoice';
@@ -20,30 +26,48 @@ class App extends Component {
 
     this.quiz_data = [
       {
-       question: 'What is the meaning of life?',
-       correct_answer: '42',
-       possible_answers: ['Love', 'Money', 'JavaScript', '42']
+        question: 'In what city were the Los Angeles Lakers originally based?',
+        correct_answer: 'Minneapolis',
+        possible_answers: ['Sacremento', 'Minneapolis', 'Louisiana', 'Detroit']
       },
       {
-       question: 'Who is the best coding YouTuber?',
-       correct_answer: 'The Coding Train',
-       possible_answers: ['Funfunfunction', 'Wes Bos', 'The Coding Train', 'Derek Banas']
+        question: 'Wilt Chamberlain once scored 100 points in a game. Which player has the second-highest total points in a single game?',
+        correct_answer: 'Kobe Bryant',
+        possible_answers: ['Michael Jordan', 'Lebron James', 'Kobe Bryant', 'Kareem Abdul-Jabbar']
+      },
+      {
+        question: 'How long is a regulation NBA game?',
+        correct_answer: '48 minutes',
+        possible_answers: ['40 minutes', '48 minutes', '60 minutes', '90 minutes']
+      },
+      {
+        question: 'Name two players that have averaged a triple double for a season',
+        correct_answer: 'Russell Westbrook and Oscar Robertson',
+        possible_answers: ['Magic Johnson and Larry Bird', 'Michael Jordan and Clyde Drexler', 'Lebron James and Kobe Bryant', 'Russell Westbrook and Oscar Robertson']
+      },
+      {
+        question: 'Which NBA team has won the most titles?',
+        correct_answer: 'Boston Celtics',
+        possible_answers: ['Los Angeles Lakers', 'Chicago Bulls', 'Boston Celtics', 'New York Knicks']
       }
+
     ]
   }
 
   submitAnswer() {
-    if (this.state.selected === this.quiz_data[this.state.progress].correct_answer) {
-      this.setState({
-        score: this.state.score + 1,
-        progress: this.state.progress + 1,
-        selected: 'None yet!'
-      })
-    } else {
-      this.setState({
-        progress: this.state.progress + 1,
-        selected: 'None yet!'
-      })
+    if (this.state.selected !== 'None yet!') {
+      if (this.state.selected === this.quiz_data[this.state.progress].correct_answer) {
+        this.setState({
+          score: this.state.score + 1,
+          progress: this.state.progress + 1,
+          selected: 'None yet!'
+        })
+      } else {
+        this.setState({
+          progress: this.state.progress + 1,
+          selected: 'None yet!'
+        })
+      }
     }
   }
 
@@ -61,28 +85,33 @@ class App extends Component {
     })
   }
 
-
   render() {
 
     return (
-      <div className="App">
-        <h2>Quiz</h2>
+        <Flexbox element="div" className="App" flexDirection="column" minHeight="100vh">
+          <h2>NBA Quiz</h2>
 
+
+        <Progress current_step={this.state.progress} question_length={this.quiz_data.length} />
         {this.state.progress < this.quiz_data.length ? (
           <div>
-            <Question current_question={this.quiz_data[this.state.progress].question} />
-            <Progress current_step={this.state.progress + 1} question_length={this.quiz_data.length} />
-            <MultiChoice
-              answers={this.quiz_data[this.state.progress].possible_answers}
-              updateSelected={this.updateSelected}
-              handleSubmit={this.submitAnswer}
-              selectedAnswer={this.state.selected} />
+
+              <Question current_question={this.quiz_data[this.state.progress].question} />
+
+              <MultiChoice
+                answers={this.quiz_data[this.state.progress].possible_answers}
+                updateSelected={this.updateSelected}
+                handleSubmit={this.submitAnswer}
+                selectedAnswer={this.state.selected} />
+
           </div>
         )
         : (
-        <Results score={this.state.score} end_message="Congratulations, you have finished!" retry={this.retryQuiz} />
-         )}
-      </div>
+
+            <Results score={this.state.score} end_message="Congratulations, you have finished!" retry={this.retryQuiz} />
+
+          )}
+        </Flexbox>
     );
   }
 }

@@ -1,4 +1,9 @@
 .App {
   text-align: center;
   font-family: Roboto;
+  background: url(http://wallpaper-gallery.net/images/nba-logo-wallpaper/nba-logo-wallpaper-0.jpg);
+}
+
+h2 {
+  color: white;
 }

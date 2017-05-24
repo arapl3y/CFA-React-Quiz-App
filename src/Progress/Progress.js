@@ -1,10 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Line } from 'rc-progress';
+import PropTypes from 'prop-types';
 import './Progress.css';
 
-class ProgressBar extends Component {
-  render() {
-    return <p>{this.props.current_step}/{this.props.question_length}</p>
-  }
+// stateless component
+
+const Progress = ({ current_step, question_length }) => {
+  let percent = current_step / question_length * 100;
+
+  return (
+    <div>
+      <p>Progress: {current_step}/{question_length}</p>
+      <Line className="progressBar" percent={percent} strokeWidth="1" strokeColor="rgb(234, 32, 80)" />
+    </div>
+  )
 }
 
-export default ProgressBar;
+Progress.propTypes = {
+  current_step: PropTypes.number,
+  question_length: PropTypes.number
+}
+
+export default Progress;
