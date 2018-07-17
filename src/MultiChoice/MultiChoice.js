@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Collection, CollectionItem, Card, CardTitle, Row, Col} from 'react-materialize';
+import { Button, Collection, CollectionItem, Card, Row, Col} from 'react-materialize';
 import './MultiChoice.css';
 
 class MultiChoice extends Component {

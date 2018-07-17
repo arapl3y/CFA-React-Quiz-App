@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, Row, Col, Footer } from 'react-materialize';
 import Flexbox from 'flexbox-react';
 import './App.css';
 
